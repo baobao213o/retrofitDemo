@@ -43,7 +43,11 @@ public class FunPicPresenter implements FunPicContract.Presenter{
                             mDataSet.clear();
                         }
                         mDataSet.addAll(temp);
-                        mView.showSuccess(mDataSet);
+                        if(isRefresh){
+                            mView.refreshFinish(mDataSet);
+                        }else{
+                            mView.loadmoreFinish(mDataSet);
+                        }
                     }
                     @Override
                     public void onError(Throwable e) {

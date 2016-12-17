@@ -12,7 +12,8 @@ import java.util.List;
 
 public interface FunPicContract {
     interface View extends BaseView<FunPicContract.Presenter> {
-        void showSuccess(List<FunPicBean.Data> data);
+        void refreshFinish(List<FunPicBean.Data> data);
+        void loadmoreFinish(List<FunPicBean.Data> data);
         void showFail(String message);
     }
 

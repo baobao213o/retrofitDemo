@@ -65,13 +65,21 @@ public class FunPicFragment extends BaseFragment implements FunPicContract.View 
 
     }
 
+
     @Override
-    public void showSuccess(List<FunPicBean.Data> data) {
+    public void refreshFinish(List<FunPicBean.Data> data) {
         mAdapter.setList((ArrayList<FunPicBean.Data>) data);
         mAdapter.notifyDataSetChanged();
         refreshLayout.finishRefresh();
+    }
+
+    @Override
+    public void loadmoreFinish(List<FunPicBean.Data> data) {
+        mAdapter.setList((ArrayList<FunPicBean.Data>) data);
+        mAdapter.notifyDataSetChanged();
         refreshLayout.finishRefreshLoadMore();
     }
+
     @Override
     public void showFail(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
