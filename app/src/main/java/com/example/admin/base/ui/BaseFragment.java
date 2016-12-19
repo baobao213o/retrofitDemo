@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.admin.App;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -42,5 +44,11 @@ public abstract class BaseFragment extends AppCompatDialogFragment{
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        App.getRefWatcher(getActivity()).watch(this);
     }
 }
