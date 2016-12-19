@@ -31,7 +31,7 @@ public class JokePresenter implements JokeContract.Presenter {
     @Override
     public void start() {
 
-        NetClient.getInstance().getService().getJoke("desc", page + "", pagesize + "").compose(Transformer.<JokeBean>retrofit())
+        NetClient.getInstance().getService().getJoke("desc", page + "", pagesize + "", String.valueOf(System.currentTimeMillis()).toString().substring(0,10)).compose(Transformer.<JokeBean>retrofit())
                 .subscribe(new Subscriber<JokeBean>() {
                     @Override
                     public void onSubscribe(Subscription s) {

@@ -18,7 +18,6 @@ public class BaseInterceptor implements Interceptor {
 
         HttpUrl url=original.url().newBuilder()
                 .addQueryParameter("key", "232dd5d42598f9d3d4205d3c3ea13c8b")
-                .addQueryParameter("time", String.valueOf(System.currentTimeMillis()).toString().substring(0,10))
                 .build();
 
         Request request = original.newBuilder()

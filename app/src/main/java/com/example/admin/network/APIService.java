@@ -14,7 +14,7 @@ import retrofit2.http.Query;
 
 public interface APIService {
     @GET("content/list.from")
-    Flowable<ResBaseModel<JokeBean>> getJoke(@Query("sort") String sort, @Query("page") String page, @Query("pagesize") String pagesize);
+    Flowable<ResBaseModel<JokeBean>> getJoke(@Query("sort") String sort, @Query("page") String page, @Query("pagesize") String pagesize, @Query("time") String time);
 
     @GET("img/text.from")
     Flowable<ResBaseModel<FunPicBean>> getFunPic(@Query("page") String page, @Query("pagesize") String pagesize);
