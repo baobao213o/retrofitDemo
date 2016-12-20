@@ -1,49 +1,53 @@
-package com.example.admin.screen;
+package com.example.admin.screen.splash;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Handler;
-import android.view.MotionEvent;
 
-import com.example.admin.base.ui.BaseActivity;
+import com.example.admin.screen.GuideActivity;
+import com.example.admin.screen.MainActivity;
 
 import java.lang.ref.WeakReference;
 
-public class SplashActivity extends BaseActivity {
+/**
+ * Created by Admin on 2016/12/20.
+ */
+
+public class SplashPresenter implements SplashContract.Presenter{
+
+
+    private SplashContract.View mView;
+
     private static final int SHOW_TIME_MIN = 3000;
     private static long mStartTime;
     private static boolean isFirstUse;
     private boolean isLoadingFinished;
-    private Handler mHandler = new SplashActivityHandler(this);
+    private Handler mHandler;
 
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_splash;
+    public SplashPresenter(SplashContract.View mView) {
+        this.mView = mView;
+        mView.setPresent(this);
+        mHandler= new SplashActivityHandler((SplashFragment) mView);
     }
 
     @Override
-    public void init() {
+    public void start() {
         mStartTime = System.currentTimeMillis();
         startLoadingTask();
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-            if (isLoadingFinished) {
-                mHandler.sendMessage(mHandler.obtainMessage(2));
-            }
-        }
-
-        return super.onTouchEvent(event);
-    }
-
     private void startLoadingTask() {
         new LoadingTask().execute();
+    }
+
+    @Override
+    public void onActionUp() {
+        if (isLoadingFinished) {
+            mHandler.sendMessage(mHandler.obtainMessage(2));
+        }
     }
 
     private class LoadingTask extends AsyncTask<Void, Void, Void> {
@@ -61,7 +65,7 @@ public class SplashActivity extends BaseActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+            SharedPreferences preferences = mView.getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
             isFirstUse = preferences.getBoolean("isFirstUse", true);
             try {
                 Thread.sleep(5000);
@@ -73,10 +77,10 @@ public class SplashActivity extends BaseActivity {
     }
 
     private static class SplashActivityHandler extends Handler {
-        WeakReference<SplashActivity> splashActivityWeakReference;
+        WeakReference<SplashFragment> splashActivityWeakReference;
 
-        SplashActivityHandler(SplashActivity splashActivity) {
-            splashActivityWeakReference = new WeakReference<SplashActivity>(splashActivity);
+        SplashActivityHandler(SplashFragment splashFragment) {
+            splashActivityWeakReference = new WeakReference<SplashFragment>(splashFragment);
         }
 
         @Override
@@ -107,17 +111,17 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void run() {
                 if (isFirstUse) {
-                    SplashActivity splashActivity = splashActivityWeakReference.get();
-                    SharedPreferences preferences = splashActivity.getSharedPreferences("user", Context.MODE_PRIVATE);
+                    SplashFragment splashFragment = splashActivityWeakReference.get();
+                    SharedPreferences preferences = splashFragment.getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean("isFirstUse", false);
                     editor.commit();
-                    splashActivity.startActivity(new Intent(splashActivity, GuideActivity.class));
-                    splashActivity.finish();
+                    splashFragment.startActivity(new Intent(splashFragment.getActivity(), GuideActivity.class));
+                    splashFragment.getActivity().finish();
                 } else {
-                    SplashActivity splashActivity = splashActivityWeakReference.get();
-                    splashActivity.startActivity(new Intent(splashActivity, MainActivity.class));
-                    splashActivity.finish();
+                    SplashFragment splashFragment = splashActivityWeakReference.get();
+                    splashFragment.getActivity().startActivity(new Intent(splashFragment.getActivity(), MainActivity.class));
+                    splashFragment.getActivity().finish();
                 }
             }
         };
