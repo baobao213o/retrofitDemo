@@ -1,25 +1,22 @@
 package com.example.admin.rxjava;
 
+import com.example.admin.network.ReturnCode;
+
 /**
  * 自定义异常类-api接口调用 服务器操作异常
- * Created by yubaokang on 2016/9/13.
  */
 public class ServerException extends Exception {
-
-    private String returnCode;
-
-    /**
-     * Constructs a {@code ServerException} with the specified
-     * detail message.
-     *
-     * @param returnCode the Response's returnCode.
-     */
-    public ServerException(String returnCode, String msg) {
-        super(msg);
-        this.returnCode = returnCode;
+    private  String msg="";
+    public ServerException(int returnCode) {
+        for( ReturnCode code : ReturnCode.values()){
+            if(code.getCode()==returnCode){
+                msg=code.getMsg();
+                break;
+            }
+        }
+    }
+    public String getMessage(){
+        return msg;
     }
 
-    public String getReturnCode() {
-        return returnCode;
-    }
 }

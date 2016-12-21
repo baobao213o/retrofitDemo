@@ -18,4 +18,7 @@ public interface APIService {
 
     @GET("img/text.from")
     Flowable<ResBaseModel<FunPicBean>> getFunPic(@Query("page") String page, @Query("pagesize") String pagesize);
+
+    @GET("weixin/query")
+    Flowable<ResBaseModel<FunPicBean>> getWeixin(@Query("pno") String pno, @Query("ps") String ps, @Query("dtype") String dtype);
 }

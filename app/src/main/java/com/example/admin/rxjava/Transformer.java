@@ -43,11 +43,11 @@ public class Transformer {
                                 if (t == null || (t instanceof List && ((List) t).size() == 0)) {
                                     return Flowable.error(new ResponseNullException("response's model is null or response's list size is 0"));
                                 } else {
-                                    if (ReturnCode.ret_ok==t.getErrorCode()) {//如果返回时"0"表示数据请求正常
+                                    if (ReturnCode.RET_OK.getCode()==t.getErrorCode()) {//如果返回时"0"表示数据请求正常
                                         return  Flowable.just(t.getResult());
                                     } else {
                                         //如果网络未连接不会调用flatMap,所以网络未连接不会出现ServerException错误
-                                        return Flowable.error(new ServerException(t.getErrorCode()+"", t.getReason()));//return the response's returnCode and msg
+                                        return Flowable.error(new ServerException(t.getErrorCode()));//return the response's returnCode and msg
                                     }
                                 }
                             }

@@ -51,7 +51,7 @@ public class FunPicPresenter implements FunPicContract.Presenter{
                     }
                     @Override
                     public void onError(Throwable e) {
-                        mView.showFail(e.toString());
+                        mView.showFail(e.getMessage());
                     }
                     @Override
                     public void onComplete() {
