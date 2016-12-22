@@ -4,7 +4,6 @@ package com.example.admin.screen.joke;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.os.Handler;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -36,7 +35,6 @@ public class JokeFragment extends BaseFragment implements FlyRefreshLayout.OnPul
 
     private JokeContract.Presenter mPresenter;
     private ItemAdapter mAdapter;
-    private LinearLayoutManager mLayoutManager;
 
     private Handler mHandler = new Handler();
 
@@ -54,9 +52,6 @@ public class JokeFragment extends BaseFragment implements FlyRefreshLayout.OnPul
     public void setupView() {
 
         mFlylayout.setOnPullRefreshListener(this);
-
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mListView.setLayoutManager(mLayoutManager);
 
         mAdapter = new ItemAdapter(getActivity());
         mListView.setAdapter(mAdapter);

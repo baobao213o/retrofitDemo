@@ -1,6 +1,5 @@
 package com.example.admin.screen.picture;
 
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
@@ -27,7 +26,6 @@ public class FunPicFragment extends BaseFragment implements FunPicContract.View 
     @BindView(R.id.refresh_layout)
     MaterialRefreshLayout refreshLayout;
     private ItemAdapter mAdapter;
-    private LinearLayoutManager mLayoutManager;
 
     private FunPicContract.Presenter mPresenter;
 
@@ -43,8 +41,6 @@ public class FunPicFragment extends BaseFragment implements FunPicContract.View 
 
     @Override
     public void setupView() {
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new ItemAdapter(this.getContext());
         recyclerView.setAdapter(mAdapter);
     }
