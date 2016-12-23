@@ -30,7 +30,7 @@ public class SplashPresenter implements SplashContract.Presenter{
     public SplashPresenter(SplashContract.View mView) {
         this.mView = mView;
         mView.setPresent(this);
-        mHandler= new SplashActivityHandler((SplashFragment) mView);
+        mHandler= new SplashActivityHandler((SplashActivity) mView);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class SplashPresenter implements SplashContract.Presenter{
 
         @Override
         protected Void doInBackground(Void... params) {
-            SharedPreferences preferences = mView.getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
+            SharedPreferences preferences = mView.getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
             isFirstUse = preferences.getBoolean("isFirstUse", true);
             try {
                 Thread.sleep(5000);
@@ -77,10 +77,10 @@ public class SplashPresenter implements SplashContract.Presenter{
     }
 
     private static class SplashActivityHandler extends Handler {
-        WeakReference<SplashFragment> splashActivityWeakReference;
+        WeakReference<SplashActivity> splashActivityWeakReference;
 
-        SplashActivityHandler(SplashFragment splashFragment) {
-            splashActivityWeakReference = new WeakReference<SplashFragment>(splashFragment);
+        SplashActivityHandler(SplashActivity splashActivity) {
+            splashActivityWeakReference = new WeakReference<SplashActivity>(splashActivity);
         }
 
         @Override
@@ -111,17 +111,17 @@ public class SplashPresenter implements SplashContract.Presenter{
             @Override
             public void run() {
                 if (isFirstUse) {
-                    SplashFragment splashFragment = splashActivityWeakReference.get();
-                    SharedPreferences preferences = splashFragment.getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+                    SplashActivity splashActivity = splashActivityWeakReference.get();
+                    SharedPreferences preferences = splashActivity.getSharedPreferences("user", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean("isFirstUse", false);
                     editor.commit();
-                    splashFragment.startActivity(new Intent(splashFragment.getActivity(), GuideActivity.class));
-                    splashFragment.getActivity().finish();
+                    splashActivity.startActivity(new Intent(splashActivity, GuideActivity.class));
+                    splashActivity.finish();
                 } else {
-                    SplashFragment splashFragment = splashActivityWeakReference.get();
-                    splashFragment.getActivity().startActivity(new Intent(splashFragment.getActivity(), MainActivity.class));
-                    splashFragment.getActivity().finish();
+                    SplashActivity splashActivity = splashActivityWeakReference.get();
+                    splashActivity.startActivity(new Intent(splashActivity, MainActivity.class));
+                    splashActivity.finish();
                 }
             }
         };

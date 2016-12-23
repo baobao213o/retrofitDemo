@@ -9,5 +9,5 @@ import android.content.Context;
 public interface BaseView<T> {
     void setPresent(T presenter);
     void exit();
-    Context getActivity();
+    Context getContext();
 }

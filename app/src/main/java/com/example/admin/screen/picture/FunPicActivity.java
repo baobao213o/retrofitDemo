@@ -1,9 +1,30 @@
 package com.example.admin.screen.picture;
 
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
+
+import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.example.admin.base.ui.BaseActivity;
 import com.example.admin.screen.R;
+import com.example.admin.screen.picture.adapter.ItemAdapter;
+import com.example.admin.screen.picture.entity.FunPicBean;
 
-public class FunPicActivity extends BaseActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+
+public class FunPicActivity extends BaseActivity implements FunPicContract.View{
+
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
+    @BindView(R.id.refresh_layout)
+    MaterialRefreshLayout refreshLayout;
+    private ItemAdapter mAdapter;
+
+    private FunPicContract.Presenter mPresenter;
 
     @Override
     public int getLayoutId() {
@@ -11,10 +32,66 @@ public class FunPicActivity extends BaseActivity {
     }
 
     @Override
-    public void init() {
-        FunPicFragment fragment=new FunPicFragment();
-        new FunPicPresenter(fragment);
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.funpic_container,fragment).commit();
+    public void initData() {
+        new FunPicPresenter(this);
+        mPresenter.start();
     }
+
+    @Override
+    public void setupView() {
+        mAdapter = new ItemAdapter(this);
+        recyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void bindEvent() {
+        refreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
+            @Override
+            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+                mPresenter.onRefesh();
+            }
+
+            @Override
+            public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+                mPresenter.onLoadmore();
+            }
+        });
+
+    }
+
+
+    @Override
+    public void refreshFinish(List<FunPicBean.Data> data) {
+        mAdapter.setList((ArrayList<FunPicBean.Data>) data);
+        mAdapter.notifyDataSetChanged();
+        refreshLayout.finishRefresh();
+    }
+
+    @Override
+    public void loadmoreFinish(List<FunPicBean.Data> data) {
+        mAdapter.setList((ArrayList<FunPicBean.Data>) data);
+        mAdapter.notifyDataSetChanged();
+        refreshLayout.finishRefreshLoadMore();
+    }
+
+    @Override
+    public void showFail(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        refreshLayout.finishRefresh();
+        refreshLayout.finishRefreshLoadMore();
+    }
+    @Override
+    public Context getContext() {
+        return this;
+    }
+    @Override
+    public void setPresent(FunPicContract.Presenter presenter) {
+        this.mPresenter = presenter;
+    }
+
+    @Override
+    public void exit() {
+        finish();
+    }
+
 }

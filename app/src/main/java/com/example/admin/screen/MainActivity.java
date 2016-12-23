@@ -21,9 +21,20 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void init() {
+    public void initData() {
+
+    }
+
+    @Override
+    public void setupView() {
         setSupportActionBar(toolbar);
     }
+
+    @Override
+    public void bindEvent() {
+
+    }
+
 
     @OnClick(R.id.btn_joke)
     void onBtnJokeClick() {
