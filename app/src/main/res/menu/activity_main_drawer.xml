@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_city"
+            android:icon="@drawable/leak_canary_icon"
+            android:title="1"/>
+        <item
+            android:id="@+id/nav_multi_cities"
+            android:title="2"
+            android:icon="@drawable/leak_canary_icon"
+            />
+    </group>
+
+    <item android:title="@string/app_name">
+        <menu>
+            <item
+                android:id="@+id/nav_set"
+                android:icon="@drawable/leak_canary_icon"
+                android:title="3"/>
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/leak_canary_icon"
+                android:title="4"/>
+        </menu>
+    </item>
+
+
+</menu>

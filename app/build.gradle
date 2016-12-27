@@ -29,6 +29,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.race604.flyrefresh:library:2.0.0'
     compile 'jp.wasabeef:recyclerview-animators:2.2.5'
+    //md
+    compile 'com.android.support:design:24.2.1'
     //retrofit2 封装gson
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     //okhttp拦截器

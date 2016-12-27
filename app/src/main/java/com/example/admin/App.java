@@ -14,9 +14,11 @@ public class App extends Application {
     //内存泄漏检测
     private RefWatcher refWatcher;
 
+    public static Context mAppContext = null;
     @Override
     public void onCreate() {
         super.onCreate();
+        mAppContext = getApplicationContext();
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return;
         }
@@ -27,5 +29,9 @@ public class App extends Application {
     public static RefWatcher getRefWatcher(Context context) {
         App application = (App) context.getApplicationContext();
         return application.refWatcher;
+    }
+
+    public static Context getmAppContext() {
+        return mAppContext;
     }
 }

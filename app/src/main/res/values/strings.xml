@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RetrofitDemo</string>
+    <string name="navigation_drawer_open">开</string>
+    <string name="navigation_drawer_close">关</string>
 </resources>
