@@ -8,7 +8,7 @@ import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 import com.example.admin.base.ui.BaseActivity;
 import com.example.admin.screen.R;
-import com.example.admin.screen.picture.adapter.ItemAdapter;
+import com.example.admin.screen.picture.adapter.FunPicAdapter;
 import com.example.admin.screen.picture.entity.FunPicBean;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class FunPicActivity extends BaseActivity implements FunPicContract.View{
     RecyclerView recyclerView;
     @BindView(R.id.refresh_layout)
     MaterialRefreshLayout refreshLayout;
-    private ItemAdapter mAdapter;
+    private FunPicAdapter mAdapter;
 
     private FunPicContract.Presenter mPresenter;
 
@@ -39,7 +39,7 @@ public class FunPicActivity extends BaseActivity implements FunPicContract.View{
 
     @Override
     public void setupView() {
-        mAdapter = new ItemAdapter(this);
+        mAdapter = new FunPicAdapter(this);
         recyclerView.setAdapter(mAdapter);
     }
 

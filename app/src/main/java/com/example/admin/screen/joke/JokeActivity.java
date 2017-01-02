@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.example.admin.base.ui.BaseActivity;
 import com.example.admin.screen.R;
-import com.example.admin.screen.joke.adapter.ItemAdapter;
+import com.example.admin.screen.joke.adapter.JokeAdapter;
 import com.example.admin.screen.joke.adapter.SampleItemAnimator;
 import com.example.admin.screen.joke.entity.JokeBean;
 import com.race604.flyrefresh.FlyRefreshLayout;
@@ -31,7 +31,7 @@ public class JokeActivity extends BaseActivity implements FlyRefreshLayout.OnPul
     FlyRefreshLayout mFlylayout;
 
     private JokeContract.Presenter mPresenter;
-    private ItemAdapter mAdapter;
+    private JokeAdapter mAdapter;
 
     private Handler mHandler = new Handler();
 
@@ -51,7 +51,7 @@ public class JokeActivity extends BaseActivity implements FlyRefreshLayout.OnPul
 
         mFlylayout.setOnPullRefreshListener(this);
 
-        mAdapter = new ItemAdapter(this);
+        mAdapter = new JokeAdapter(this);
         mListView.setAdapter(mAdapter);
 
         mListView.setItemAnimator(new SampleItemAnimator());
