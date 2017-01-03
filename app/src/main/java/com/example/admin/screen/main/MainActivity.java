@@ -2,6 +2,7 @@ package com.example.admin.screen.main;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -12,8 +13,10 @@ import android.view.MenuItem;
 
 import com.example.admin.base.ui.BaseActivity;
 import com.example.admin.screen.R;
+import com.example.admin.screen.joke.JokeActivity;
 import com.example.admin.screen.main.adapter.MainAdapter;
 import com.example.admin.screen.main.entity.MainBean;
+import com.example.admin.screen.picture.FunPicActivity;
 
 import java.util.ArrayList;
 
@@ -60,7 +63,22 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void bindEvent() {
+        mAdapter.setOnItemLisenter(new MainAdapter.ItemListener() {
+            @Override
+            public void onItemClick(int position) {
+                switch(position){
+                    case 0:
+                        startActivity(new Intent(MainActivity.this, JokeActivity.class));
+                        break;
+                    case 1:
+                        startActivity(new Intent(MainActivity.this, FunPicActivity.class));
+                        break;
+                    default:
+                        break;
+                }
 
+            }
+        });
     }
 
     @Override

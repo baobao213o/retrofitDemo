@@ -26,6 +26,10 @@ public class MainPresenter implements MainContract.Presenter{
         bean.setContent("最新趣图");
         bean.setDrawable(R.mipmap.pic);
         mList.add(bean);
+        bean=new MainBean();
+        bean.setContent("暂定");
+        bean.setDrawable(R.mipmap.temp);
+        mList.add(bean);
         mView.showMainMenuData(mList);
 
     }

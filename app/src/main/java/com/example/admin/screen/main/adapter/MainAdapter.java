@@ -22,8 +22,13 @@ import butterknife.ButterKnife;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ItemViewHolder> {
 
+    public interface ItemListener{
+        void onItemClick(int position);
+    }
+
     private ArrayList<MainBean> mDataSet = new ArrayList<>();
     private Context context;
+    private ItemListener listener;
 
     public MainAdapter(Context context) {
         this.context = context;
@@ -33,6 +38,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ItemViewHolder
         this.mDataSet=mDataSet;
     }
 
+    public void setOnItemLisenter(ItemListener listener){
+        this.listener=listener;
+    }
+
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(context).inflate(R.layout.cardview_main, viewGroup, false);
@@ -40,11 +49,18 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ItemViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ItemViewHolder itemViewHolder, int i) {
+    public void onBindViewHolder(ItemViewHolder itemViewHolder, final int i) {
         MainBean data = mDataSet.get(i);
         itemViewHolder.content.setText(data.getContent());
         int drawable=data.getDrawable();
         itemViewHolder.iv_pic.setImageDrawable(context.getResources().getDrawable(drawable));
+        itemViewHolder.iv_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(i);
+            }
+        });
+
     }
 
     @Override
