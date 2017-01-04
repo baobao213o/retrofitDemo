@@ -9,8 +9,8 @@
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <!--<item name="android:fitsSystemWindows">true</item>-->
         <!--<item name="android:clipToPadding">false</item>-->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">#222222</item> <!--toolbar颜色-->
+        <item name="colorPrimaryDark">#000000</item>       <!--上下 状态栏颜色 抽屉 头颜色-->
         <item name="colorAccent">@color/colorAccent</item>
 
     </style>
