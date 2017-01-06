@@ -17,6 +17,7 @@ public class MainPresenter implements MainContract.Presenter{
 
     @Override
     public void start() {
+
         mList=new ArrayList<>();
         MainBean bean=new MainBean();
         bean.setContent("按更新时间查询笑话");
