@@ -54,7 +54,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ItemViewHolder
         itemViewHolder.content.setText(data.getContent());
         int drawable=data.getDrawable();
         itemViewHolder.iv_pic.setImageDrawable(context.getResources().getDrawable(drawable));
-        itemViewHolder.iv_pic.setOnClickListener(new View.OnClickListener() {
+        itemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onItemClick(i);
