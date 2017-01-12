@@ -1,4 +1,5 @@
-package com.example.admin.screen.main.adapter;
+package com.example.admin.adapter;
+
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.example.admin.C;
+import com.example.admin.base.entity.MainBean;
 import com.example.admin.screen.R;
-import com.example.admin.screen.main.entity.MainBean;
 
 import java.util.ArrayList;
 
@@ -52,8 +55,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ItemViewHolder
     public void onBindViewHolder(ItemViewHolder itemViewHolder, final int i) {
         MainBean data = mDataSet.get(i);
         itemViewHolder.content.setText(data.getContent());
-        int drawable=data.getDrawable();
-        itemViewHolder.iv_pic.setImageDrawable(context.getResources().getDrawable(drawable));
+        Glide.with(context).load(C.mImages[i]).into( itemViewHolder.iv_pic);
         itemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

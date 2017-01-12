@@ -10,18 +10,17 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.Toast;
 
+import com.example.admin.adapter.JokeAdapter;
+import com.example.admin.base.entity.JokeBean;
 import com.example.admin.base.ui.BaseActivity;
 import com.example.admin.screen.R;
-import com.example.admin.screen.joke.adapter.JokeAdapter;
-import com.example.admin.screen.joke.adapter.SampleItemAnimator;
-import com.example.admin.screen.joke.entity.JokeBean;
+import com.example.admin.util.SampleItemAnimator;
 import com.race604.flyrefresh.FlyRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-
 
 public class JokeActivity extends BaseActivity implements FlyRefreshLayout.OnPullRefreshListener, JokeContract.View{
 

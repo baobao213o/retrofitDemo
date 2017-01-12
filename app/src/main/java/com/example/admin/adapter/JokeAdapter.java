@@ -1,4 +1,5 @@
-package com.example.admin.screen.joke.adapter;
+package com.example.admin.adapter;
+
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.admin.screen.joke.entity.JokeBean;
+import com.example.admin.base.entity.JokeBean;
 import com.example.admin.screen.R;
 
 import java.util.ArrayList;

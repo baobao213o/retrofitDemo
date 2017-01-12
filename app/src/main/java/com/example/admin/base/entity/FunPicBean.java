@@ -1,4 +1,4 @@
-package com.example.admin.screen.picture.entity;
+package com.example.admin.base.entity;
 
 import java.util.List;
 

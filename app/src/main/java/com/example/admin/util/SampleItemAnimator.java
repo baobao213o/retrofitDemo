@@ -1,4 +1,4 @@
-package com.example.admin.screen.joke.adapter;
+package com.example.admin.util;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;

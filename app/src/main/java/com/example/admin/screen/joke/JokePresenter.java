@@ -3,7 +3,7 @@ package com.example.admin.screen.joke;
 
 import com.example.admin.network.NetClient;
 import com.example.admin.rxjava.Transformer;
-import com.example.admin.screen.joke.entity.JokeBean;
+import com.example.admin.base.entity.JokeBean;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;

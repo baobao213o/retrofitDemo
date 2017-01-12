@@ -3,7 +3,7 @@ package com.example.admin.screen.joke;
 
 import com.example.admin.base.mvp.BasePresenter;
 import com.example.admin.base.mvp.BaseView;
-import com.example.admin.screen.joke.entity.JokeBean;
+import com.example.admin.base.entity.JokeBean;
 
 import java.util.List;
 

@@ -11,11 +11,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.example.admin.adapter.MainAdapter;
+import com.example.admin.base.entity.MainBean;
 import com.example.admin.base.ui.BaseActivity;
 import com.example.admin.screen.R;
 import com.example.admin.screen.joke.JokeActivity;
-import com.example.admin.screen.main.adapter.MainAdapter;
-import com.example.admin.screen.main.entity.MainBean;
 import com.example.admin.screen.picture.FunPicActivity;
 
 import java.util.ArrayList;

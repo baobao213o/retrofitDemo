@@ -1,4 +1,4 @@
-package com.example.admin.screen.main.entity;
+package com.example.admin.base.entity;
 
 /**
  * Created by Admin on 2016/12/9.
