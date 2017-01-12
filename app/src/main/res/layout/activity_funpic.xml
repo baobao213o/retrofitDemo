@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.cjj.MaterialRefreshLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/refresh_layout"
+    android:id="@+id/coord"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:isLoadMore="true"
-    app:progress_size_type="big"
-    app:wave_show="true">
+    android:layout_height="wrap_content">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <include layout="@layout/part_tablayout" />
+
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/recycler_main"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--app:behavior_overlapTop="30dp"-->
+        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+        <!--app:layoutManager="android.support.v7.widget.LinearLayoutManager" />-->
+
+    <com.cjj.MaterialRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
-</com.cjj.MaterialRefreshLayout>
+        app:isLoadMore="true"
+        app:progress_size_type="big"
+        app:wave_show="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+    </com.cjj.MaterialRefreshLayout>
+
+</android.support.design.widget.CoordinatorLayout>
+
+
