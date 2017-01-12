@@ -8,7 +8,7 @@ import android.widget.Toast;
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 import com.example.admin.adapter.FunPicAdapter;
-import com.example.admin.base.entity.FunPicBean;
+import com.example.admin.entity.FunPicBean;
 import com.example.admin.base.ui.BaseActivity;
 import com.example.admin.screen.R;
 

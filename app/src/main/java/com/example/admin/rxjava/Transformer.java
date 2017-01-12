@@ -1,6 +1,6 @@
 package com.example.admin.rxjava;
 
-import com.example.admin.base.entity.ResBaseModel;
+import com.example.admin.entity.ResBaseModel;
 import com.example.admin.network.ReturnCode;
 
 import org.reactivestreams.Publisher;

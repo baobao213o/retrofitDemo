@@ -1,7 +1,7 @@
 package com.example.admin.screen.picture;
 
 
-import com.example.admin.base.entity.FunPicBean;
+import com.example.admin.entity.FunPicBean;
 import com.example.admin.network.NetClient;
 import com.example.admin.rxjava.Transformer;
 

@@ -11,7 +11,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.widget.Toast;
 
 import com.example.admin.adapter.JokeAdapter;
-import com.example.admin.base.entity.JokeBean;
+import com.example.admin.entity.JokeBean;
 import com.example.admin.base.ui.BaseActivity;
 import com.example.admin.screen.R;
 import com.example.admin.util.SampleItemAnimator;

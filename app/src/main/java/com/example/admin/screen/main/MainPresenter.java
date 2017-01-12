@@ -1,8 +1,8 @@
 package com.example.admin.screen.main;
 
 
-import com.example.admin.base.entity.MainBean;
-import com.example.admin.screen.R;
+import com.example.admin.C;
+import com.example.admin.entity.MainBean;
 
 import java.util.ArrayList;
 
@@ -22,15 +22,15 @@ public class MainPresenter implements MainContract.Presenter{
         mList=new ArrayList<>();
         MainBean bean=new MainBean();
         bean.setContent("按更新时间查询笑话");
-        bean.setDrawable(R.mipmap.joke);
+        bean.setDrawable(C.mImages[0]);
         mList.add(bean);
         bean=new MainBean();
         bean.setContent("最新趣图");
-        bean.setDrawable(R.mipmap.pic);
+        bean.setDrawable(C.mImages[1]);
         mList.add(bean);
         bean=new MainBean();
         bean.setContent("暂定");
-        bean.setDrawable(R.mipmap.temp);
+        bean.setDrawable(C.mImages[2]);
         mList.add(bean);
         mView.showMainMenuData(mList);
 

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.admin.base.entity.FunPicBean;
+import com.example.admin.entity.FunPicBean;
 import com.example.admin.screen.R;
 
 import java.util.ArrayList;

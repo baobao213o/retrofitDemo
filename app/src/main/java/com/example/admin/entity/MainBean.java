@@ -1,18 +1,18 @@
-package com.example.admin.base.entity;
+package com.example.admin.entity;
 
 /**
  * Created by Admin on 2016/12/9.
  */
 
 public class MainBean {
-    private int drawable;
+    private String drawable;
     private String content;
 
-    public int getDrawable() {
+    public String getDrawable() {
         return drawable;
     }
 
-    public void setDrawable(int drawable) {
+    public void setDrawable(String drawable) {
         this.drawable = drawable;
     }
 

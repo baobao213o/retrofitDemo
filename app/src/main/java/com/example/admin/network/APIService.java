@@ -1,8 +1,8 @@
 package com.example.admin.network;
 
-import com.example.admin.base.entity.FunPicBean;
-import com.example.admin.base.entity.JokeBean;
-import com.example.admin.base.entity.ResBaseModel;
+import com.example.admin.entity.FunPicBean;
+import com.example.admin.entity.JokeBean;
+import com.example.admin.entity.ResBaseModel;
 
 import io.reactivex.Flowable;
 import retrofit2.http.GET;

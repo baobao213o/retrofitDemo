@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.admin.base.entity.JokeBean;
+import com.example.admin.entity.JokeBean;
 import com.example.admin.screen.R;
 
 import java.util.ArrayList;

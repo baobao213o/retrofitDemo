@@ -1,7 +1,7 @@
 package com.example.admin.screen.main;
 
 
-import com.example.admin.base.entity.MainBean;
+import com.example.admin.entity.MainBean;
 import com.example.admin.base.mvp.BasePresenter;
 import com.example.admin.base.mvp.BaseView;
 

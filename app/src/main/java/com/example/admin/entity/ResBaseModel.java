@@ -1,4 +1,4 @@
-package com.example.admin.base.entity;
+package com.example.admin.entity;
 
 import com.google.gson.annotations.SerializedName;
 

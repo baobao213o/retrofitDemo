@@ -12,7 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.admin.adapter.MainAdapter;
-import com.example.admin.base.entity.MainBean;
+import com.example.admin.entity.MainBean;
 import com.example.admin.base.ui.BaseActivity;
 import com.example.admin.screen.R;
 import com.example.admin.screen.joke.JokeActivity;
