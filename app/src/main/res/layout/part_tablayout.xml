@@ -22,11 +22,12 @@
 
 
         <ImageView
+            android:id="@+id/tablayout_iv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@mipmap/title"
             app:layout_collapseMode="parallax"
+            android:transitionName="share"
             />
 
 

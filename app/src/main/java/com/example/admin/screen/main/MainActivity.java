@@ -1,14 +1,18 @@
 package com.example.admin.screen.main;
 
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.admin.adapter.MainAdapter;
 import com.example.admin.base.ui.BaseToolbarActivity;
@@ -61,18 +65,21 @@ public class MainActivity extends BaseToolbarActivity implements NavigationView.
     public void bindEvent() {
         mAdapter.setOnItemLisenter(new MainAdapter.ItemListener() {
             @Override
-            public void onItemClick(int position) {
+            public void onItemClick(View v, int position, View iv) {
                 switch(position){
                     case 0:
                         startActivity(new Intent(MainActivity.this, JokeActivity.class));
                         break;
                     case 1:
-                        startActivity(new Intent(MainActivity.this, FunPicActivity.class));
+                        if(Build.VERSION.SDK_INT>21){
+                            startActivity(new Intent(MainActivity.this, FunPicActivity.class), ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,new Pair<>(iv,"share"),new Pair<>(v,"shared")).toBundle());
+                        }else{
+                            startActivity(new Intent(MainActivity.this, FunPicActivity.class));
+                        }
                         break;
                     default:
                         break;
                 }
-
             }
         });
     }

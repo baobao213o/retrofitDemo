@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ItemViewHolder> {
 
     public interface ItemListener{
-        void onItemClick(int position);
+        void onItemClick(View v,int position,View iv);
     }
 
     private ArrayList<MainBean> mDataSet = new ArrayList<>();
@@ -51,14 +51,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ItemViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ItemViewHolder itemViewHolder, final int i) {
+    public void onBindViewHolder(final ItemViewHolder itemViewHolder, final int i) {
         MainBean data = mDataSet.get(i);
         itemViewHolder.content.setText(data.getContent());
         Glide.with(context).load(data.getDrawable()).into( itemViewHolder.iv_pic);
         itemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(i);
+                listener.onItemClick(v,i,itemViewHolder.iv_pic);
             }
         });
 
@@ -69,13 +69,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ItemViewHolder
         return mDataSet.size();
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder {
+    class ItemViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.main_name)
         TextView content;
         @BindView(R.id.main_pic)
         ImageView iv_pic;
 
-        public ItemViewHolder(View itemView) {
+        ItemViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
