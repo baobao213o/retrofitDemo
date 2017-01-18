@@ -71,10 +71,12 @@ public class MainActivity extends BaseToolbarActivity implements NavigationView.
                         startActivity(new Intent(MainActivity.this, JokeActivity.class));
                         break;
                     case 1:
+                        Intent it=new Intent(MainActivity.this, FunPicActivity.class);
+                        it.putExtra("position",position);
                         if(Build.VERSION.SDK_INT>21){
-                            startActivity(new Intent(MainActivity.this, FunPicActivity.class), ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,new Pair<>(iv,"share"),new Pair<>(v,"shared")).toBundle());
+                            startActivity(it, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,new Pair<>(iv,"share"),new Pair<>(v,"shared")).toBundle());
                         }else{
-                            startActivity(new Intent(MainActivity.this, FunPicActivity.class));
+                            startActivity(it);
                         }
                         break;
                     default:

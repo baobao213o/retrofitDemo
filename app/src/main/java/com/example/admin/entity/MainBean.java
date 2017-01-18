@@ -5,16 +5,7 @@ package com.example.admin.entity;
  */
 
 public class MainBean {
-    private String drawable;
     private String content;
-
-    public String getDrawable() {
-        return drawable;
-    }
-
-    public void setDrawable(String drawable) {
-        this.drawable = drawable;
-    }
 
     public String getContent() {
         return content;

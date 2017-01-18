@@ -3,13 +3,17 @@ package com.example.admin.screen.picture;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
+import com.example.admin.C;
 import com.example.admin.adapter.FunPicAdapter;
-import com.example.admin.entity.FunPicBean;
 import com.example.admin.base.ui.BaseActivity;
+import com.example.admin.entity.FunPicBean;
 import com.example.admin.screen.R;
 
 import java.util.ArrayList;
@@ -23,6 +27,8 @@ public class FunPicActivity extends BaseActivity implements FunPicContract.View{
     RecyclerView recyclerView;
     @BindView(R.id.refresh_layout)
     MaterialRefreshLayout refreshLayout;
+    @BindView(R.id.tablayout_iv)
+    ImageView tablayout_iv;
     private FunPicAdapter mAdapter;
 
     private FunPicContract.Presenter mPresenter;
@@ -36,6 +42,7 @@ public class FunPicActivity extends BaseActivity implements FunPicContract.View{
     public void initData() {
         new FunPicPresenter(this);
         mPresenter.start();
+        Glide.with(this).load(C.mImages[getIntent().getIntExtra("position",0)]).diskCacheStrategy(DiskCacheStrategy.ALL).into(tablayout_iv);
     }
 
     @Override

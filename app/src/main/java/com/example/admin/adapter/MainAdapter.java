@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.admin.C;
 import com.example.admin.entity.MainBean;
 import com.example.admin.screen.R;
 
@@ -54,7 +56,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ItemViewHolder
     public void onBindViewHolder(final ItemViewHolder itemViewHolder, final int i) {
         MainBean data = mDataSet.get(i);
         itemViewHolder.content.setText(data.getContent());
-        Glide.with(context).load(data.getDrawable()).into( itemViewHolder.iv_pic);
+        Glide.with(context).load(C.mImages[i]).diskCacheStrategy(DiskCacheStrategy.ALL).into( itemViewHolder.iv_pic);
         itemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
