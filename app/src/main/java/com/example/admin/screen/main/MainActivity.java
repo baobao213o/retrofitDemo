@@ -21,6 +21,8 @@ import com.example.admin.screen.R;
 import com.example.admin.screen.joke.JokeActivity;
 import com.example.admin.screen.picture.FunPicActivity;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -72,8 +74,9 @@ public class MainActivity extends BaseToolbarActivity implements NavigationView.
                         break;
                     case 1:
                         Intent it=new Intent(MainActivity.this, FunPicActivity.class);
-                        it.putExtra("position",position);
-                        if(Build.VERSION.SDK_INT>21){
+                        if(Build.VERSION.SDK_INT>=21){
+//                            EventBus.getDefault().post(new EventCommon<Integer>(position,EventCommon.INTENT_TOOLBAR_IMAGE));
+                            EventBus.getDefault().postSticky(position);
                             startActivity(it, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,new Pair<>(iv,"share"),new Pair<>(v,"shared")).toBundle());
                         }else{
                             startActivity(it);
@@ -117,4 +120,6 @@ public class MainActivity extends BaseToolbarActivity implements NavigationView.
         mAdapter.setList(data);
         mAdapter.notifyDataSetChanged();
     }
+
+
 }

@@ -20,7 +20,6 @@ public abstract class BaseActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         unbinder=ButterKnife.bind(this);
-
         initData();
         setupView();
         bindEvent();

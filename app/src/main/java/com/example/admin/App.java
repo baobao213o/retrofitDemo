@@ -63,7 +63,8 @@ public class App extends Application {
                 store.remove(activity);
             }
         });
-
+        //eventbus 加索引
+//        EventBus.builder().addIndex(new MyEventBusIndex()).installDefaultEventBus();
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return;
         }
