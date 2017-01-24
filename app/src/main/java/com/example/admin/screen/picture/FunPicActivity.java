@@ -13,13 +13,8 @@ import com.cjj.MaterialRefreshListener;
 import com.example.admin.C;
 import com.example.admin.adapter.FunPicAdapter;
 import com.example.admin.base.ui.BaseActivity;
-import com.example.admin.entity.EventCommon;
 import com.example.admin.entity.FunPicBean;
 import com.example.admin.screen.R;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,9 +40,10 @@ public class FunPicActivity extends BaseActivity implements FunPicContract.View{
 
     @Override
     public void initData() {
-        EventBus.getDefault().register(this);
         new FunPicPresenter(this);
         mPresenter.start();
+
+        Glide.with(this).load(C.mImages[getIntent().getIntExtra("position",0)]).diskCacheStrategy(DiskCacheStrategy.ALL).into(tablayout_iv);
     }
 
     @Override
@@ -69,7 +65,6 @@ public class FunPicActivity extends BaseActivity implements FunPicContract.View{
                 mPresenter.onLoadmore();
             }
         });
-
     }
 
 
@@ -107,22 +102,8 @@ public class FunPicActivity extends BaseActivity implements FunPicContract.View{
         finish();
     }
 
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onImageEvent(EventCommon<Integer> event){
-        if(event.getTag()==EventCommon.INTENT_TOOLBAR_IMAGE){
-            Glide.with(this).load(C.mImages[event.getEvent()]).diskCacheStrategy(DiskCacheStrategy.ALL).into(tablayout_iv);
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
-    public void onImageEvent(int event){
-            Glide.with(this).load(C.mImages[event]).diskCacheStrategy(DiskCacheStrategy.ALL).into(tablayout_iv);
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 }

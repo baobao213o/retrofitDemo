@@ -35,7 +35,7 @@ public class JokePresenter implements JokeContract.Presenter {
                 .subscribe(new Subscriber<JokeBean>() {
                     @Override
                     public void onSubscribe(Subscription s) {
-                        s.request(1);
+                        s.request(Long.MAX_VALUE);
                     }
                     @Override
                     public void onNext(JokeBean value) {
