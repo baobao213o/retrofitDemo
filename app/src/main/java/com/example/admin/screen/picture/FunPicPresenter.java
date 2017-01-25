@@ -3,10 +3,8 @@ package com.example.admin.screen.picture;
 
 import com.example.admin.entity.FunPicBean;
 import com.example.admin.network.NetClient;
+import com.example.admin.rxjava.ProgressSubscribe;
 import com.example.admin.rxjava.Transformer;
-
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,34 +29,55 @@ public class FunPicPresenter implements FunPicContract.Presenter{
 
     @Override
     public void start() {
+//        NetClient.getInstance().getService().getFunPic( page + "", pagesize + "").compose(Transformer.<FunPicBean>retrofit())
+//                            .subscribe(new Subscriber<FunPicBean>() {
+//                        @Override
+//                        public void onSubscribe(Subscription s) {
+//                            s.request(Long.MAX_VALUE);
+//                        }
+//                        @Override
+//                        public void onNext(FunPicBean value) {
+//                            List<FunPicBean.Data> temp = value.getData();
+//                            if(isRefresh){
+//                                mDataSet.clear();
+//                            }
+//                            mDataSet.addAll(temp);
+//                            if(isRefresh){
+//                                mView.refreshFinish(mDataSet);
+//                            }else{
+//                                mView.loadmoreFinish(mDataSet);
+//                            }
+//                        }
+//                        @Override
+//                        public void onError(Throwable e) {
+//                            mView.showFail(e.getMessage());
+//                        }
+//                        @Override
+//                        public void onComplete() {
+//
+//                        }
+//                });
         NetClient.getInstance().getService().getFunPic( page + "", pagesize + "").compose(Transformer.<FunPicBean>retrofit())
-                .subscribe(new Subscriber<FunPicBean>() {
-                    @Override
-                    public void onSubscribe(Subscription s) {
-                        s.request(Long.MAX_VALUE);
-                    }
+                .subscribe(new ProgressSubscribe<FunPicBean>(new ProgressSubscribe.SubscribeOnNextListener<FunPicBean>() {
                     @Override
                     public void onNext(FunPicBean value) {
                         List<FunPicBean.Data> temp = value.getData();
-                        if(isRefresh){
-                            mDataSet.clear();
-                        }
-                        mDataSet.addAll(temp);
-                        if(isRefresh){
-                            mView.refreshFinish(mDataSet);
-                        }else{
-                            mView.loadmoreFinish(mDataSet);
-                        }
+                            if(isRefresh){
+                                mDataSet.clear();
+                            }
+                            mDataSet.addAll(temp);
+                            if(isRefresh){
+                                mView.refreshFinish(mDataSet);
+                            }else{
+                                mView.loadmoreFinish(mDataSet);
+                            }
                     }
+
                     @Override
                     public void onError(Throwable e) {
                         mView.showFail(e.getMessage());
                     }
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                },mView.getContext()));
     }
 
 

@@ -5,7 +5,6 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -29,7 +28,6 @@ import com.example.admin.screen.picture.FunPicActivity;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class MainActivity extends BaseToolbarActivity implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
 
@@ -85,7 +83,7 @@ public class MainActivity extends BaseToolbarActivity implements NavigationView.
                         Intent it = new Intent(MainActivity.this, FunPicActivity.class);
                         if (Build.VERSION.SDK_INT >= 21) {
                             it.putExtra("position", position);
-                            startActivity(it, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, new Pair<>(iv, "share"), new Pair<>(v, "shared")).toBundle());
+                            startActivity(it, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, new Pair<>(iv, "share")).toBundle());
                         } else {
                             startActivity(it);
                         }
@@ -129,11 +127,4 @@ public class MainActivity extends BaseToolbarActivity implements NavigationView.
         mAdapter.notifyDataSetChanged();
     }
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }
