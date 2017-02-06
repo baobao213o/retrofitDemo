@@ -1,8 +1,8 @@
 package com.example.admin.screen;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 
 import com.example.admin.base.ui.BaseActivity;
@@ -12,7 +12,7 @@ import java.lang.ref.WeakReference;
 
 public class SplashActivity extends BaseActivity{
 
-    private SwitchHandler mHandler = new SwitchHandler(Looper.getMainLooper(), this);
+    private SwitchHandler mHandler = new SwitchHandler(this);
 
     @Override
     public int getLayoutId() {
@@ -21,7 +21,7 @@ public class SplashActivity extends BaseActivity{
 
     @Override
     public void initData() {
-        mHandler.sendEmptyMessageDelayed(1, 1000);
+        mHandler.sendEmptyMessageDelayed(1, 3000);
     }
 
     @Override
@@ -34,25 +34,31 @@ public class SplashActivity extends BaseActivity{
 
     }
 
-    class SwitchHandler extends Handler {
+    static class SwitchHandler extends Handler {
         private WeakReference<SplashActivity> mWeakReference;
 
-        public SwitchHandler(Looper mLooper, SplashActivity activity) {
-            super(mLooper);
-            mWeakReference = new WeakReference<SplashActivity>(activity);
+        public SwitchHandler( SplashActivity activity) {
+            mWeakReference = new WeakReference<>(activity);
         }
 
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-
-            Intent i = new Intent(SplashActivity.this, MainActivity.class);
-            SplashActivity.this.startActivity(i);
+            final Activity activity = mWeakReference.get();
+            if(activity==null){
+                return;
+            }
+            Intent i = new Intent(activity, MainActivity.class);
+            activity.startActivity(i);
             //activity切换的淡入淡出效果
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            SplashActivity.this.finish();
+            activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            activity.finish();
         }
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
+    }
 }
