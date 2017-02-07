@@ -1,4 +1,4 @@
-package com.example.admin.base.ui;
+package com.example.admin.base;
 
 import android.support.v7.widget.Toolbar;
 

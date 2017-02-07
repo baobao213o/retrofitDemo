@@ -19,7 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.admin.C;
 import com.example.admin.adapter.MainAdapter;
-import com.example.admin.base.ui.BaseToolbarActivity;
+import com.example.admin.base.BaseToolbarActivity;
 import com.example.admin.entity.MainBean;
 import com.example.admin.screen.R;
 import com.example.admin.screen.joke.JokeActivity;

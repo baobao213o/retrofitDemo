@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 
-import com.example.admin.base.ui.BaseActivity;
+import com.example.admin.base.BaseActivity;
 import com.example.admin.screen.main.MainActivity;
 
 import java.lang.ref.WeakReference;
