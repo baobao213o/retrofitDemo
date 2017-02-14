@@ -21,7 +21,7 @@ public class SplashActivity extends BaseActivity{
 
     @Override
     public void initData() {
-        mHandler.sendEmptyMessageDelayed(1, 3000);
+        mHandler.sendEmptyMessageDelayed(1, 2000);
     }
 
     @Override
@@ -60,5 +60,6 @@ public class SplashActivity extends BaseActivity{
     protected void onDestroy() {
         super.onDestroy();
         mHandler.removeCallbacksAndMessages(null);
+        mHandler=null;
     }
 }
