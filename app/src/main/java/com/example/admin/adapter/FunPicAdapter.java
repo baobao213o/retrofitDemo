@@ -24,9 +24,13 @@ import butterknife.ButterKnife;
 
 public class FunPicAdapter extends RecyclerView.Adapter<FunPicAdapter.ItemViewHolder> {
 
+    public interface ItemListener{
+        void onItemClick(View iv,String url);
+    }
+
     private ArrayList<FunPicBean.Data> mDataSet = new ArrayList<>();
     private Context context;
-
+    private ItemListener listener;
     public FunPicAdapter(Context context) {
         this.context = context;
     }
@@ -34,7 +38,9 @@ public class FunPicAdapter extends RecyclerView.Adapter<FunPicAdapter.ItemViewHo
     public void setList(ArrayList<FunPicBean.Data> mDataSet){
         this.mDataSet=mDataSet;
     }
-
+    public void setOnItemLisenter(ItemListener listener){
+        this.listener=listener;
+    }
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(context).inflate(R.layout.listitem_pic, viewGroup, false);
@@ -42,8 +48,8 @@ public class FunPicAdapter extends RecyclerView.Adapter<FunPicAdapter.ItemViewHo
     }
 
     @Override
-    public void onBindViewHolder(ItemViewHolder itemViewHolder, int i) {
-        FunPicBean.Data data = mDataSet.get(i);
+    public void onBindViewHolder(final ItemViewHolder itemViewHolder, final int i) {
+        final FunPicBean.Data data = mDataSet.get(i);
         itemViewHolder.content.setText(data.getContent());
         String url=data.getUrl();
         if(url.contains(".gif")||(url.contains(".GIF"))){
@@ -51,6 +57,12 @@ public class FunPicAdapter extends RecyclerView.Adapter<FunPicAdapter.ItemViewHo
         }else{
             Glide.with(context).load(data.getUrl()).into(itemViewHolder.iv_pic);
         }
+        itemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(itemViewHolder.iv_pic,data.getUrl());
+            }
+        });
     }
 
     @Override

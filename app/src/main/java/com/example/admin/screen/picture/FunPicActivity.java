@@ -3,6 +3,7 @@ package com.example.admin.screen.picture;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -63,6 +64,13 @@ public class FunPicActivity extends BaseActivity implements FunPicContract.View{
             @Override
             public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
                 mPresenter.onLoadmore();
+            }
+        });
+        mAdapter.setOnItemLisenter(new FunPicAdapter.ItemListener() {
+
+            @Override
+            public void onItemClick(View iv, String url) {
+                
             }
         });
     }

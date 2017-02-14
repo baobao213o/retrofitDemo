@@ -34,7 +34,7 @@ public class SplashActivity extends BaseActivity{
 
     }
 
-    static class SwitchHandler extends Handler {
+    private static class SwitchHandler extends Handler {
         private WeakReference<SplashActivity> mWeakReference;
 
         public SwitchHandler( SplashActivity activity) {
@@ -58,8 +58,7 @@ public class SplashActivity extends BaseActivity{
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         mHandler.removeCallbacksAndMessages(null);
-        mHandler=null;
+        super.onDestroy();
     }
 }
