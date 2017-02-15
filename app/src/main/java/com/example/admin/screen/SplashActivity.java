@@ -1,18 +1,18 @@
 package com.example.admin.screen;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 
 import com.example.admin.base.BaseActivity;
 import com.example.admin.screen.main.MainActivity;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
-import java.lang.ref.WeakReference;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 
 public class SplashActivity extends BaseActivity{
 
-    private SwitchHandler mHandler = new SwitchHandler(this);
 
     @Override
     public int getLayoutId() {
@@ -21,7 +21,18 @@ public class SplashActivity extends BaseActivity{
 
     @Override
     public void initData() {
-        mHandler.sendEmptyMessageDelayed(1, 2000);
+
+        Observable.timer(2, TimeUnit.SECONDS).compose(this.<Long>bindUntilEvent(ActivityEvent.DESTROY)).subscribe(new Consumer<Long>() {
+            @Override
+            public void accept(Long aLong) throws Exception {
+                Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                SplashActivity.this.startActivity(i);
+                //activity切换的淡入淡出效果
+                SplashActivity.this.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                SplashActivity.this.finish();
+            }
+        });
+
     }
 
     @Override
@@ -34,31 +45,8 @@ public class SplashActivity extends BaseActivity{
 
     }
 
-    private static class SwitchHandler extends Handler {
-        private WeakReference<SplashActivity> mWeakReference;
-
-        public SwitchHandler( SplashActivity activity) {
-            mWeakReference = new WeakReference<>(activity);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            final Activity activity = mWeakReference.get();
-            if(activity==null){
-                return;
-            }
-            Intent i = new Intent(activity, MainActivity.class);
-            activity.startActivity(i);
-            //activity切换的淡入淡出效果
-            activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            activity.finish();
-        }
-    }
-
     @Override
     protected void onDestroy() {
-        mHandler.removeCallbacksAndMessages(null);
         super.onDestroy();
     }
 }
