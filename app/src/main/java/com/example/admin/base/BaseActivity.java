@@ -35,6 +35,9 @@ public abstract class BaseActivity<VM extends ViewDataBinding> extends RxAppComp
         bindEvent();
     }
 
+    public VM getmBinding() {
+        return mBinding;
+    }
 
     public abstract int getLayoutId();
     public abstract void initData();

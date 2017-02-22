@@ -41,8 +41,4 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding>{
     public void bindEvent() {
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 }
