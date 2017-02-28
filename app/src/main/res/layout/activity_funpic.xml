@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/coord"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <include layout="@layout/part_tablayout" />
+    <android.support.design.widget.CoordinatorLayout
 
-    <com.cjj.MaterialRefreshLayout
-        android:id="@+id/refresh_layout"
+        android:id="@+id/coord"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:isLoadMore="true"
-        app:progress_size_type="big"
-        app:wave_show="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="match_parent">
 
+        <include layout="@layout/part_tablayout" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <com.cjj.MaterialRefreshLayout
+            android:id="@+id/refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
-    </com.cjj.MaterialRefreshLayout>
+            app:isLoadMore="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:progress_size_type="big"
+            app:wave_show="true">
 
-</android.support.design.widget.CoordinatorLayout>
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+        </com.cjj.MaterialRefreshLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>
 

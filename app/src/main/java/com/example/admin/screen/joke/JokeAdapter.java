@@ -1,4 +1,4 @@
-package com.example.admin.adapter;
+package com.example.admin.screen.joke;
 
 
 import android.content.Context;

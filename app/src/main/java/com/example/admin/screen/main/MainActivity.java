@@ -2,7 +2,6 @@ package com.example.admin.screen.main;
 
 
 import android.app.ActivityOptions;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,10 +19,10 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.admin.C;
-import com.example.admin.adapter.MainAdapter;
 import com.example.admin.base.BaseActivity;
 import com.example.admin.entity.MainBean;
 import com.example.admin.screen.R;
+import com.example.admin.screen.databinding.ActivityMainBinding;
 import com.example.admin.screen.joke.JokeActivity;
 import com.example.admin.screen.picture.FunPicActivity;
 
@@ -32,7 +31,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
+public class MainActivity extends BaseActivity<ActivityMainBinding> implements NavigationView.OnNavigationItemSelectedListener{
 
     @BindView(R.id.nav_view)
     NavigationView navView;
@@ -45,9 +44,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    private MainContract.Presenter mPresenter;
-
-
     private MainAdapter mAdapter;
 
     @Override
@@ -57,7 +53,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void initData() {
-        new MainPresenter(this);
 
     }
 
@@ -104,7 +99,22 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.start();
+        getData();
+    }
+
+    private void getData(){
+        ArrayList<MainBean> mList=new ArrayList<>();
+        MainBean bean=new MainBean();
+        bean.setContent("按更新时间查询笑话");
+        mList.add(bean);
+        bean=new MainBean();
+        bean.setContent("最新趣图");
+        mList.add(bean);
+        bean=new MainBean();
+        bean.setContent("暂定");
+        mList.add(bean);
+        mAdapter.setList(mList);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -112,26 +122,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         return false;
     }
 
-    @Override
-    public void setPresent(MainContract.Presenter presenter) {
-        this.mPresenter = presenter;
-    }
 
-    @Override
-    public void exit() {
-        finish();
-    }
-
-    @Override
-    public Context getContext() {
-        return this;
-    }
-
-    @Override
-    public void showMainMenuData(ArrayList<MainBean> data) {
-        mAdapter.setList(data);
-        mAdapter.notifyDataSetChanged();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

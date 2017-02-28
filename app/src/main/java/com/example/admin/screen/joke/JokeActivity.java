@@ -3,36 +3,43 @@ package com.example.admin.screen.joke;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import android.content.Context;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.Toast;
 
-import com.example.admin.adapter.JokeAdapter;
-import com.example.admin.entity.JokeBean;
 import com.example.admin.base.BaseActivity;
+import com.example.admin.entity.JokeBean;
+import com.example.admin.network.NetClient;
+import com.example.admin.rxjava.Transformer;
 import com.example.admin.screen.R;
+import com.example.admin.screen.databinding.ActivityJokeBinding;
 import com.example.admin.util.SampleItemAnimator;
 import com.race604.flyrefresh.FlyRefreshLayout;
+
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
-public class JokeActivity extends BaseActivity implements FlyRefreshLayout.OnPullRefreshListener, JokeContract.View{
+public class JokeActivity extends BaseActivity<ActivityJokeBinding> implements FlyRefreshLayout.OnPullRefreshListener{
 
     @BindView(R.id.list)
     RecyclerView mListView;
     @BindView(R.id.fly_layout)
     FlyRefreshLayout mFlylayout;
 
-    private JokeContract.Presenter mPresenter;
     private JokeAdapter mAdapter;
 
     private Handler mHandler = new Handler();
+
+    private int pagesize = 1;
+    private int page = 1;
+    private ArrayList<JokeBean.Data> mDataSet = new ArrayList<>();
 
     @Override
     public int getLayoutId() {
@@ -41,8 +48,7 @@ public class JokeActivity extends BaseActivity implements FlyRefreshLayout.OnPul
 
     @Override
     public void initData() {
-        new JokePresenter(this);
-        mPresenter.start();
+
     }
 
     @Override
@@ -54,6 +60,33 @@ public class JokeActivity extends BaseActivity implements FlyRefreshLayout.OnPul
         mListView.setAdapter(mAdapter);
 
         mListView.setItemAnimator(new SampleItemAnimator());
+
+        getData();
+    }
+
+    private void getData(){
+        NetClient.getInstance().getService().getJoke("desc", page + "", pagesize + "", String.valueOf(System.currentTimeMillis()).toString().substring(0,10)).compose(Transformer.<JokeBean>retrofit())
+                .subscribe(new Subscriber<JokeBean>() {
+                    @Override
+                    public void onSubscribe(Subscription s) {
+                        s.request(Long.MAX_VALUE);
+                    }
+                    @Override
+                    public void onNext(JokeBean value) {
+                        List<JokeBean.Data> temp = value.getData();
+                        mDataSet.addAll(temp);
+                        mAdapter.setList(mDataSet);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(JokeActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Override
@@ -67,12 +100,9 @@ public class JokeActivity extends BaseActivity implements FlyRefreshLayout.OnPul
                 }
             });
         }
+
     }
 
-    @Override
-    public Context getContext() {
-        return this;
-    }
     @Override
     public void onRefresh(FlyRefreshLayout view) {
         View child = mListView.getChildAt(0);
@@ -100,27 +130,8 @@ public class JokeActivity extends BaseActivity implements FlyRefreshLayout.OnPul
 
     @Override
     public void onRefreshAnimationEnd(FlyRefreshLayout view) {
-        mPresenter.onRefreshAnimationEnd();
+        page++;
+        getData();
     }
 
-    @Override
-    public void setPresent(JokeContract.Presenter present) {
-        mPresenter = present;
-    }
-
-    @Override
-    public void exit() {
-        finish();
-    }
-
-    @Override
-    public void showSuccess(List<JokeBean.Data> data) {
-        mAdapter.setList((ArrayList<JokeBean.Data>) data);
-        mAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void showFail(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
 }

@@ -1,4 +1,4 @@
-package com.example.admin.adapter;
+package com.example.admin.screen.picture;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

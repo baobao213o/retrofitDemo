@@ -1,4 +1,4 @@
-package com.example.admin.adapter;
+package com.example.admin.screen.main;
 
 
 import android.content.Context;
