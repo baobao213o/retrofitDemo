@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".joke.JokeActivity" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".main.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

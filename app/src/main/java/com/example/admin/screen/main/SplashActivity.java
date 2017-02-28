@@ -1,10 +1,10 @@
-package com.example.admin.screen;
+package com.example.admin.screen.main;
 
 import android.content.Intent;
 
 import com.example.admin.base.BaseActivity;
+import com.example.admin.screen.R;
 import com.example.admin.screen.databinding.ActivitySplashBinding;
-import com.example.admin.screen.main.MainActivity;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import java.util.concurrent.TimeUnit;
