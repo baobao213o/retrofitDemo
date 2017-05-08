@@ -21,6 +21,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding>{
 
     @Override
     public void initData() {
+
         Observable.timer(2, TimeUnit.SECONDS).compose(this.<Long>bindUntilEvent(ActivityEvent.DESTROY)).subscribe(new Consumer<Long>() {
             @Override
             public void accept(Long aLong) throws Exception {

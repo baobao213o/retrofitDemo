@@ -60,7 +60,7 @@ public class FunPicActivity extends BaseActivity<ActivityFunpicBinding> {
     }
 
     private void getData(){
-        NetClient.getInstance().getService().getFunPic( page + "", pagesize + "").compose(Transformer.<FunPicBean>retrofit())
+        new NetClient().getService().getFunPic( page + "", pagesize + "").compose(Transformer.<FunPicBean>retrofit())
                 .subscribe(new Subscriber<FunPicBean>() {
                     @Override
                     public void onSubscribe(Subscription s) {

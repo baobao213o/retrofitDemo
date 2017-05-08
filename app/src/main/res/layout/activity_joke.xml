@@ -2,23 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
-        android:id="@+id/activity_main"
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager">
 
-        <com.race604.flyrefresh.FlyRefreshLayout
-            android:id="@+id/fly_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#FFFFFF"
-                android:paddingTop="24dp"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
-        </com.race604.flyrefresh.FlyRefreshLayout>
-    </RelativeLayout>
 </layout>

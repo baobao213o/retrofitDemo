@@ -2,9 +2,6 @@ package com.example.admin.entity;
 
 import java.util.List;
 
-/**
- * Created by Admin on 2016/12/9.
- */
 
 public class JokeBean {
 

@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:orientation="vertical">
-
+    <com.example.admin.view.CustomLayout
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:padding="11dp">
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="splash"/>
-    </LinearLayout>
+            android:text="1111111111111"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="222222222222"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="333333333333333333333333333333333333333312312222222222222222212312333333333333333333"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="444444444444444"/>
+    </com.example.admin.view.CustomLayout>
 </layout>

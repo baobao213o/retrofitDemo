@@ -1,10 +1,10 @@
 package com.example.admin.screen.main;
 
 
+import android.animation.ObjectAnimator;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -15,6 +15,7 @@ import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -25,11 +26,11 @@ import com.example.admin.screen.R;
 import com.example.admin.screen.databinding.ActivityMainBinding;
 import com.example.admin.screen.joke.JokeActivity;
 import com.example.admin.screen.picture.FunPicActivity;
+import com.example.admin.screen.weixin.WeixinActivity;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -53,7 +54,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements N
 
     @Override
     public void initData() {
-
+        ObjectAnimator animator = ObjectAnimator.ofFloat(new TextView(this), "alpha", 1f, 0f, 1f);
+        animator.setDuration(5000);
+        animator.start();
     }
 
     @Override
@@ -89,6 +92,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements N
                             startActivity(it);
                         }
                         break;
+                    case 2:
+                        startActivity(new Intent(MainActivity.this, WeixinActivity.class));
+                        break;
                     default:
                         break;
                 }
@@ -111,7 +117,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements N
         bean.setContent("最新趣图");
         mList.add(bean);
         bean=new MainBean();
-        bean.setContent("暂定");
+        bean.setContent("微信精选");
         mList.add(bean);
         mAdapter.setList(mList);
         mAdapter.notifyDataSetChanged();
@@ -122,12 +128,4 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements N
         return false;
     }
 
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }
