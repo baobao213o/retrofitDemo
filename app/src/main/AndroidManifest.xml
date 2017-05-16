@@ -28,7 +28,7 @@
             android:name=".main.MainActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".picture.picBrowser.PicBrowserActivity" />
-        <activity android:name=".weixin.WeixinActivity"></activity>
+        <activity android:name=".weixin.WeixinActivity"/>
     </application>
 
 </manifest>

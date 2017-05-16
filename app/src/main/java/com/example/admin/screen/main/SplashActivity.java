@@ -5,14 +5,14 @@ import android.content.Intent;
 import com.example.admin.base.BaseActivity;
 import com.example.admin.screen.R;
 import com.example.admin.screen.databinding.ActivitySplashBinding;
-import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.example.admin.view.GuideView;
 
-import java.util.concurrent.TimeUnit;
+import butterknife.BindView;
 
-import io.reactivex.Observable;
-import io.reactivex.functions.Consumer;
+public class SplashActivity extends BaseActivity<ActivitySplashBinding> implements GuideView.IAnimatorEnd {
 
-public class SplashActivity extends BaseActivity<ActivitySplashBinding>{
+    @BindView(R.id.guide)
+    GuideView guide;
 
     @Override
     public int getLayoutId() {
@@ -22,24 +22,37 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding>{
     @Override
     public void initData() {
 
-        Observable.timer(2, TimeUnit.SECONDS).compose(this.<Long>bindUntilEvent(ActivityEvent.DESTROY)).subscribe(new Consumer<Long>() {
-            @Override
-            public void accept(Long aLong) throws Exception {
-                Intent i = new Intent(SplashActivity.this, MainActivity.class);
-                SplashActivity.this.startActivity(i);
-                //activity切换的淡入淡出效果
-                SplashActivity.this.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                SplashActivity.this.finish();
-            }
-        });
+//        Observable.timer(2, TimeUnit.SECONDS).compose(this.<Long>bindUntilEvent(ActivityEvent.DESTROY)).subscribe(new Consumer<Long>() {
+//            @Override
+//            public void accept(Long aLong) throws Exception {
+//                Intent i = new Intent(SplashActivity.this, MainActivity.class);
+//                SplashActivity.this.startActivity(i);
+//                //activity切换的淡入淡出效果
+//                SplashActivity.this.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+//                SplashActivity.this.finish();
+//            }
+//        });
+
+
     }
 
     @Override
     public void setupView() {
+        guide.setListener(this);
     }
 
     @Override
     public void bindEvent() {
     }
+
+    @Override
+    public void amanitorEnd() {
+        Intent i = new Intent(SplashActivity.this, MainActivity.class);
+        SplashActivity.this.startActivity(i);
+        //activity切换的淡入淡出效果
+        SplashActivity.this.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        SplashActivity.this.finish();
+    }
+
 
 }

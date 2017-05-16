@@ -1,7 +1,6 @@
 package com.example.admin.screen.main;
 
 
-import android.animation.ObjectAnimator;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
@@ -15,7 +14,6 @@ import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -54,9 +52,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements N
 
     @Override
     public void initData() {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(new TextView(this), "alpha", 1f, 0f, 1f);
-        animator.setDuration(5000);
-        animator.start();
+
     }
 
     @Override

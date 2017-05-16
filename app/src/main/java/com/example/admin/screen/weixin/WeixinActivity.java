@@ -1,7 +1,9 @@
 package com.example.admin.screen.weixin;
 
 import android.support.v4.view.ViewPager;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.example.admin.base.BaseActivity;
@@ -16,19 +18,22 @@ import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 
 
-public class WeixinActivity extends BaseActivity<ActivityWeixinBinding> implements ViewPager.OnPageChangeListener{
+public class WeixinActivity extends BaseActivity<ActivityWeixinBinding> implements ViewPager.OnPageChangeListener {
 
     @BindView(R.id.vp_weixin)
     ViewPager vpWeixin;
 
-    private int pno=1;
-    private int ps=5;
-    private ArrayList<WebView> views=new ArrayList<>();
+    private int pno = 1;
+    private int ps = 5;
+    private ArrayList<WebView> views = new ArrayList<>();
+
+    private HashMap<String,WeixinBean.Content> map=new HashMap<>();
 
     private WeinxinPagerAdapter adapter;
 
@@ -39,27 +44,51 @@ public class WeixinActivity extends BaseActivity<ActivityWeixinBinding> implemen
 
     @Override
     public void initData() {
-        new NetClient(BaseInterceptor.WEIXIN_TYPE).getService().getWeixin( pno + "", ps + "").compose(Transformer.<WeixinBean>retrofit())
+        for (int i = 0; i < 3; i++) {
+            WebView view = new WebView(WeixinActivity.this);
+            view.getSettings().setAppCacheEnabled(true);
+            view.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+            view.setWebViewClient(new WebViewClient(){
+                @Override
+                public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                    view.loadUrl(url);
+                    return true;
+                }
+            });
+            views.add(view);
+        }
+        getData();
+    }
+
+
+    private void getData(){
+        new NetClient(BaseInterceptor.WEIXIN_TYPE).getService().getWeixin(pno + "", ps + "").compose(Transformer.<WeixinBean>retrofit())
                 .subscribe(new Subscriber<WeixinBean>() {
                     @Override
                     public void onSubscribe(Subscription s) {
                         s.request(Long.MAX_VALUE);
                     }
+
                     @Override
                     public void onNext(WeixinBean value) {
                         List<WeixinBean.Content> temp = value.getList();
-                        for(int i=0;i<temp.size();i++){
-                            WebView view=new WebView(WeixinActivity.this);
-                            view.loadUrl(temp.get(i).getUrl());
-                            views.add(view);
+                        for(WeixinBean.Content bean:temp){
+                            if(!map.containsKey(bean.getId())){
+                                map.put(bean.getId(),bean);
+                            }
+                        }
+                        for(int i=0;i<views.size();i++){
+                            views.get(i).loadUrl(temp.get(i).getUrl());
                         }
                         adapter.setList(views);
                         adapter.notifyDataSetChanged();
                     }
+
                     @Override
                     public void onError(Throwable e) {
                         Toast.makeText(WeixinActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                     }
+
                     @Override
                     public void onComplete() {
 
@@ -69,7 +98,7 @@ public class WeixinActivity extends BaseActivity<ActivityWeixinBinding> implemen
 
     @Override
     public void setupView() {
-        adapter=new WeinxinPagerAdapter();
+        adapter = new WeinxinPagerAdapter();
         vpWeixin.setAdapter(adapter);
     }
 
@@ -86,12 +115,19 @@ public class WeixinActivity extends BaseActivity<ActivityWeixinBinding> implemen
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        System.out.println(position );
+
     }
 
     @Override
     public void onPageSelected(int position) {
-
+        //划到右侧边缘
+        if(position==pno*ps-1){
+            pno=pno+1;
+            getData();
+        }else if(position>=views.size()&&position<pno*ps-1){
+            
+        }
+        System.out.println(position);
     }
 
     @Override
