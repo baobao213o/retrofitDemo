@@ -8,15 +8,11 @@ import android.support.annotation.Nullable;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.example.admin.App;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-/**
- * Created by Admin on 2016/12/12.
- */
 
 public abstract class BaseActivity<VM extends ViewDataBinding> extends RxAppCompatActivity{
     private Unbinder unbinder;
@@ -48,6 +44,5 @@ public abstract class BaseActivity<VM extends ViewDataBinding> extends RxAppComp
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
-        App.getRefWatcher(this).watch(this);
     }
 }

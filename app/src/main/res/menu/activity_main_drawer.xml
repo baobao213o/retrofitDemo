@@ -4,12 +4,12 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_city"
-            android:icon="@drawable/leak_canary_icon"
+            android:icon="@drawable/icon"
             android:title="1"/>
         <item
             android:id="@+id/nav_multi_cities"
             android:title="2"
-            android:icon="@drawable/leak_canary_icon"
+            android:icon="@drawable/icon"
             />
     </group>
 
@@ -17,11 +17,11 @@
         <menu>
             <item
                 android:id="@+id/nav_set"
-                android:icon="@drawable/leak_canary_icon"
+                android:icon="@drawable/icon"
                 android:title="3"/>
             <item
                 android:id="@+id/nav_about"
-                android:icon="@drawable/leak_canary_icon"
+                android:icon="@drawable/icon"
                 android:title="4"/>
         </menu>
     </item>

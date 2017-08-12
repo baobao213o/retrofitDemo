@@ -1,15 +1,12 @@
 package com.example.admin.screen.picture;
 
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.cjj.MaterialRefreshLayout;
-import com.cjj.MaterialRefreshListener;
 import com.example.admin.C;
 import com.example.admin.base.BaseActivity;
 import com.example.admin.entity.FunPicBean;
@@ -17,6 +14,10 @@ import com.example.admin.network.NetClient;
 import com.example.admin.rxjava.Transformer;
 import com.example.admin.screen.R;
 import com.example.admin.screen.databinding.ActivityFunpicBinding;
+import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
+import com.github.jdsjlzx.interfaces.OnRefreshListener;
+import com.github.jdsjlzx.recyclerview.LRecyclerView;
+import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
@@ -29,12 +30,12 @@ import butterknife.BindView;
 public class FunPicActivity extends BaseActivity<ActivityFunpicBinding> {
 
     @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
-    @BindView(R.id.refresh_layout)
-    MaterialRefreshLayout refreshLayout;
+    LRecyclerView recyclerView;
     @BindView(R.id.tablayout_iv)
     ImageView tablayout_iv;
     private FunPicAdapter mAdapter;
+
+    private LRecyclerViewAdapter mLRecyclerViewAdapter;
 
     private int pagesize = 10;
     private int page = 1;
@@ -54,7 +55,10 @@ public class FunPicActivity extends BaseActivity<ActivityFunpicBinding> {
     @Override
     public void setupView() {
         mAdapter = new FunPicAdapter(this);
-        recyclerView.setAdapter(mAdapter);
+
+        mLRecyclerViewAdapter = new LRecyclerViewAdapter(mAdapter);
+
+        recyclerView.setAdapter(mLRecyclerViewAdapter);
 
         getData();
     }
@@ -74,20 +78,20 @@ public class FunPicActivity extends BaseActivity<ActivityFunpicBinding> {
                         }
                         mDataSet.addAll(temp);
                         if(isRefresh){
+                            recyclerView.refreshComplete(pagesize);
                             mAdapter.setList(mDataSet);
-                            mAdapter.notifyDataSetChanged();
-                            refreshLayout.finishRefresh();
+                            mLRecyclerViewAdapter.notifyDataSetChanged();
                         }else{
+                            recyclerView.refreshComplete(pagesize);
                             mAdapter.setList(mDataSet);
-                            mAdapter.notifyDataSetChanged();
-                            refreshLayout.finishRefreshLoadMore();
+                            mLRecyclerViewAdapter.notifyDataSetChanged();
                         }
                     }
                     @Override
                     public void onError(Throwable e) {
                         Toast.makeText(FunPicActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        refreshLayout.finishRefresh();
-                        refreshLayout.finishRefreshLoadMore();
+                        recyclerView.refreshComplete(pagesize);
+                        mLRecyclerViewAdapter.notifyDataSetChanged();
                     }
                     @Override
                     public void onComplete() {
@@ -98,21 +102,26 @@ public class FunPicActivity extends BaseActivity<ActivityFunpicBinding> {
 
     @Override
     public void bindEvent() {
-        refreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
+        recyclerView.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+            public void onRefresh() {
                 isRefresh=true;
                 page=1;
                 getData();
             }
+        });
 
+
+        recyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
-            public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+            public void onLoadMore() {
                 isRefresh=false;
                 page++;
                 getData();
             }
         });
+
+
         mAdapter.setOnItemLisenter(new FunPicAdapter.ItemListener() {
 
             @Override

@@ -2,31 +2,22 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.design.widget.CoordinatorLayout
+    <LinearLayout
 
         android:id="@+id/coord"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <include layout="@layout/part_tablayout" />
 
-        <com.cjj.MaterialRefreshLayout
-            android:id="@+id/refresh_layout"
+        <com.github.jdsjlzx.recyclerview.LRecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:isLoadMore="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:progress_size_type="big"
-            app:wave_show="true">
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
-        </com.cjj.MaterialRefreshLayout>
-
-    </android.support.design.widget.CoordinatorLayout>
+    </LinearLayout>
 </layout>
 

@@ -6,7 +6,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-import com.example.admin.base.BaseActivity;
+import com.example.admin.base.SwipeBackActivity;
 import com.example.admin.entity.WeixinBean;
 import com.example.admin.network.BaseInterceptor;
 import com.example.admin.network.NetClient;
@@ -24,7 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 
 
-public class WeixinActivity extends BaseActivity<ActivityWeixinBinding> implements ViewPager.OnPageChangeListener {
+public class WeixinActivity extends SwipeBackActivity<ActivityWeixinBinding> implements ViewPager.OnPageChangeListener {
 
     @BindView(R.id.vp_weixin)
     ViewPager vpWeixin;
@@ -80,8 +80,7 @@ public class WeixinActivity extends BaseActivity<ActivityWeixinBinding> implemen
                         for(int i=0;i<views.size();i++){
                             views.get(i).loadUrl(temp.get(i).getUrl());
                         }
-                        adapter.setList(views);
-                        adapter.notifyDataSetChanged();
+                        adapter = new WeinxinPagerAdapter(views,vpWeixin);
                     }
 
                     @Override
@@ -98,8 +97,7 @@ public class WeixinActivity extends BaseActivity<ActivityWeixinBinding> implemen
 
     @Override
     public void setupView() {
-        adapter = new WeinxinPagerAdapter();
-        vpWeixin.setAdapter(adapter);
+
     }
 
     @Override
