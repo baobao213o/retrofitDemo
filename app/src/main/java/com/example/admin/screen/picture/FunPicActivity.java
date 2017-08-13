@@ -126,7 +126,7 @@ public class FunPicActivity extends BaseActivity<ActivityFunpicBinding> {
 
             @Override
             public void onItemClick(View iv, String url) {
-                
+                System.out.println(11111);
             }
         });
     }
