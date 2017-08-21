@@ -34,11 +34,11 @@ public class SwipeLayout extends FrameLayout implements ViewTreeObserver.OnGloba
 
     private float mScrimOpacity;
 
-    private static final int DEFAULT_SCRIM_COLOR =  0x99000000;
+    private static final int DEFAULT_SCRIM_COLOR = 0x99000000;
 
     private boolean isFinish = false;
 
-    private Paint p=new Paint();
+    private Paint p = new Paint();
 
     public SwipeLayout(@NonNull Context context) {
         this(context, null);
@@ -64,7 +64,7 @@ public class SwipeLayout extends FrameLayout implements ViewTreeObserver.OnGloba
 
     private void drawShadow(Canvas canvas) {
         mShadowLeft.setBounds(getLeft() - mShadowLeft.getIntrinsicWidth(), getTop(), getLeft(), getBottom());
-        mShadowLeft.setAlpha((int) (mScrimOpacity* FULL_ALPHA));
+        mShadowLeft.setAlpha((int) (mScrimOpacity * FULL_ALPHA));
         mShadowLeft.draw(canvas);
 
     }
@@ -76,14 +76,14 @@ public class SwipeLayout extends FrameLayout implements ViewTreeObserver.OnGloba
         final int alpha = (int) (baseAlpha * mScrimOpacity);
         final int color = alpha << 24;
 
-        canvas.drawRect(0,getTop(), getLeft(), getBottom(),p);
+        canvas.drawRect(0, getTop(), getLeft(), getBottom(), p);
         canvas.drawColor(color);
     }
 
     @Override
     public void computeScroll() {
         if (mScroller.computeScrollOffset()) {
-            mScrimOpacity=1+(float) mScroller.getCurrX()/(float)width;
+            mScrimOpacity = 1 + (float) mScroller.getCurrX() / (float) width;
 
             scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
             //更新界面
@@ -104,7 +104,7 @@ public class SwipeLayout extends FrameLayout implements ViewTreeObserver.OnGloba
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
 
-        float x =  ev.getX();
+        float x = ev.getX();
         boolean intercept = false;
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -140,20 +140,20 @@ public class SwipeLayout extends FrameLayout implements ViewTreeObserver.OnGloba
             case MotionEvent.ACTION_MOVE:
 //                System.out.println("2_ACTION_MOVE  left=" + left + "  offX=" + offX);
                 if (offX > 0) {
-                    scrollTo((int)(left - offX), 0);
-                    mScrimOpacity=1+(float) getScrollX()/(float)width;
+                    scrollTo((int) (left - offX), 0);
+                    mScrimOpacity = 1 + (float) getScrollX() / (float) width;
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 if (left + offX < width / 4) {
 //                    System.out.println("2_ACTION_UP  x=" + x);
                     if (offX > 0) {
-                        mScroller.startScroll((int)(-left - offX), 0, (int)(left + offX), 0, DURATION_TIME);
+                        mScroller.startScroll((int) (-left - offX), 0, (int) (left + offX), 0, DURATION_TIME);
                         invalidate();
                     }
                 } else {
 //                    System.out.println("2_ACTION_UP  2");
-                    mScroller.startScroll((int)(-left - offX), 0, (int)(-width + left + offX), 0, DURATION_TIME);
+                    mScroller.startScroll((int) (-left - offX), 0, (int) (-width + left + offX), 0, DURATION_TIME);
                     invalidate();
                     isFinish = true;
                 }

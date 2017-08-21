@@ -16,10 +16,11 @@
 
         <ImageView
             android:id="@+id/iv_pic"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
             android:scaleType="fitXY"
             android:layout_alignParentRight="true"
+
              />
 
         <TextView
@@ -30,7 +31,6 @@
             android:layout_centerVertical="true"
             android:textColor="@android:color/black"
             android:layout_toLeftOf="@id/iv_pic"
-            android:text="11111"
             android:textSize="20sp" />
     </RelativeLayout>
 

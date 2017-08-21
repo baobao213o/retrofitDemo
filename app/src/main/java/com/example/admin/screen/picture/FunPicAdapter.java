@@ -8,39 +8,38 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.admin.entity.FunPicBean;
 import com.example.admin.screen.R;
+import com.example.admin.util.ImageLoader;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by Admin on 2016/12/12.
- */
 
-public class FunPicAdapter extends RecyclerView.Adapter<FunPicAdapter.ItemViewHolder> {
+class FunPicAdapter extends RecyclerView.Adapter<FunPicAdapter.ItemViewHolder> {
 
-    public interface ItemListener{
-        void onItemClick(View iv,String url);
+    interface ItemListener {
+        void onItemClick(View iv, ArrayList<FunPicBean.Data> data, int position);
     }
 
     private ArrayList<FunPicBean.Data> mDataSet = new ArrayList<>();
     private Context context;
     private ItemListener listener;
-    public FunPicAdapter(Context context) {
+
+    FunPicAdapter(Context context) {
         this.context = context;
     }
 
-    public void setList(ArrayList<FunPicBean.Data> mDataSet){
-        this.mDataSet=mDataSet;
+    public void setList(ArrayList<FunPicBean.Data> mDataSet) {
+        this.mDataSet = mDataSet;
     }
-    public void setOnItemLisenter(ItemListener listener){
-        this.listener=listener;
+
+    void setOnItemLisenter(ItemListener listener) {
+        this.listener = listener;
     }
+
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(context).inflate(R.layout.listitem_pic, viewGroup, false);
@@ -51,16 +50,16 @@ public class FunPicAdapter extends RecyclerView.Adapter<FunPicAdapter.ItemViewHo
     public void onBindViewHolder(final ItemViewHolder itemViewHolder, final int i) {
         final FunPicBean.Data data = mDataSet.get(i);
         itemViewHolder.content.setText(data.getContent());
-        String url=data.getUrl();
-        if(url.contains(".gif")||(url.contains(".GIF"))){
-            Glide.with(context).load(url).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(itemViewHolder.iv_pic);
-        }else{
-            Glide.with(context).load(data.getUrl()).into(itemViewHolder.iv_pic);
+        final String url = data.getUrl();
+        if (url.contains(".gif") || (url.contains(".GIF"))) {
+            ImageLoader.getInstance().loadGif(context,url,itemViewHolder.iv_pic);
+        } else {
+            ImageLoader.getInstance().loadPic(context,url,itemViewHolder.iv_pic);
         }
         itemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(itemViewHolder.iv_pic,data.getUrl());
+                listener.onItemClick(itemViewHolder.iv_pic, mDataSet, i);
             }
         });
     }
@@ -70,13 +69,13 @@ public class FunPicAdapter extends RecyclerView.Adapter<FunPicAdapter.ItemViewHo
         return mDataSet.size();
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder {
+    class ItemViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.content)
         TextView content;
         @BindView(R.id.iv_pic)
         ImageView iv_pic;
 
-        public ItemViewHolder(View itemView) {
+        ItemViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

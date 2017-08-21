@@ -93,7 +93,6 @@ public class WeixinActivity extends SwipeBackActivity<ActivityWeixinBinding> imp
 
     @Override
     public void onPageSelected(int position) {
-        System.out.println(position);
         //划到右侧边缘
         if (position == pno * ps - 1) {
             pno = pno + 1;

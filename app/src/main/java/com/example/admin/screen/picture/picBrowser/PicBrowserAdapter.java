@@ -1,37 +1,41 @@
-package com.example.admin.screen.weixin;
-
+package com.example.admin.screen.picture.picBrowser;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.widget.ImageView;
 
-import com.example.admin.entity.WeixinBean;
+import com.example.admin.entity.FunPicBean;
 import com.example.admin.screen.R;
+import com.example.admin.util.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-class WeinxinPagerAdapter extends PagerAdapter {
+/**
+ * Created by baoba on 2017/8/21.
+ */
 
-    private ArrayList<WeixinBean.Content> list;//数据源
+public class PicBrowserAdapter extends PagerAdapter {
+
+    private ArrayList<FunPicBean.Data> list;//数据源
 
     private LinkedList<View> mViewCache = null;  //删除的缓存
 
     private LayoutInflater mLayoutInflater = null;
 
-    WeinxinPagerAdapter(Context context, ArrayList<WeixinBean.Content> datas) {
+    private Context context;
+
+    PicBrowserAdapter(Context context, ArrayList<FunPicBean.Data> datas) {
         this.list = datas;
+        this.context = context;
         this.mLayoutInflater = LayoutInflater.from(context);
         this.mViewCache = new LinkedList<>();
     }
 
-    public void setList(ArrayList<WeixinBean.Content> viewList) {
+    public void setList(ArrayList<FunPicBean.Data> viewList) {
         this.list = viewList;
         notifyDataSetChanged();
     }
@@ -49,36 +53,23 @@ class WeinxinPagerAdapter extends PagerAdapter {
         ViewHolder viewHolder;
         View convertView;
         if (mViewCache.size() == 0) {
-            convertView = this.mLayoutInflater.inflate(R.layout.pageritem_weixin, null, false);
+            convertView = this.mLayoutInflater.inflate(R.layout.pageritem_pic_brower, null, false);
 
-            WebView webview = (WebView) convertView.findViewById(R.id.webview);
+            ImageView webview = (ImageView) convertView.findViewById(R.id.iv_picmain);
             viewHolder = new ViewHolder();
-            viewHolder.webview = webview;
+            viewHolder.imageView = webview;
             convertView.setTag(viewHolder);
         } else {
             convertView = mViewCache.removeFirst();
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
-        viewHolder.webview.getSettings().setAppCacheEnabled(true);
-        viewHolder.webview.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-        viewHolder.webview.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                System.out.println(position+"   "+view.getTag()+"   "+url);
-                view.loadUrl(url);
-                return false;
-            }
-
-            @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                super.onPageStarted(view, url, favicon);
-            }
-
-        });
         String url = list.get(position).getUrl();
-        viewHolder.webview.loadUrl(url);
-        viewHolder.webview.setTag(url);
+        if (url.contains(".gif") || (url.contains(".GIF"))) {
+            System.out.println(url);
+            ImageLoader.getInstance().loadGif(context,url,viewHolder.imageView);
+        } else {
+            ImageLoader.getInstance().loadPic(context,url,viewHolder.imageView);
+        }
         container.addView(convertView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
         return convertView;
@@ -98,7 +89,7 @@ class WeinxinPagerAdapter extends PagerAdapter {
     }
 
     private final class ViewHolder {
-        WebView webview;
+        ImageView imageView;
     }
 
 }

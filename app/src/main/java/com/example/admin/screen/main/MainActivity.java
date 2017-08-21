@@ -15,8 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.admin.C;
 import com.example.admin.base.BaseActivity;
 import com.example.admin.entity.MainBean;
@@ -25,6 +23,7 @@ import com.example.admin.screen.databinding.ActivityMainBinding;
 import com.example.admin.screen.joke.JokeActivity;
 import com.example.admin.screen.picture.FunPicActivity;
 import com.example.admin.screen.weixin.WeixinActivity;
+import com.example.admin.util.ImageLoader;
 
 import java.util.ArrayList;
 
@@ -66,8 +65,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements N
         }
         mAdapter = new MainAdapter(this);
         recyclerView.setAdapter(mAdapter);
-
-        Glide.with(this).load(C.mImages[4]).diskCacheStrategy(DiskCacheStrategy.ALL).into(tablayout_iv);
+        ImageLoader.getInstance().loadPic(this,C.mImages[4],tablayout_iv);
     }
 
     @Override

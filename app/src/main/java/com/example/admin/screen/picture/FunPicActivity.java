@@ -1,12 +1,14 @@
 package com.example.admin.screen.picture;
 
 
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.os.Build;
+import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.admin.C;
 import com.example.admin.base.BaseActivity;
 import com.example.admin.entity.FunPicBean;
@@ -14,6 +16,8 @@ import com.example.admin.network.NetClient;
 import com.example.admin.rxjava.Transformer;
 import com.example.admin.screen.R;
 import com.example.admin.screen.databinding.ActivityFunpicBinding;
+import com.example.admin.screen.picture.picBrowser.PicBrowserActivity;
+import com.example.admin.util.ImageLoader;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.interfaces.OnRefreshListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
@@ -49,7 +53,7 @@ public class FunPicActivity extends BaseActivity<ActivityFunpicBinding> {
 
     @Override
     public void initData() {
-        Glide.with(this).load(C.mImages[getIntent().getIntExtra("position",0)]).diskCacheStrategy(DiskCacheStrategy.ALL).into(tablayout_iv);
+        ImageLoader.getInstance().loadPic(this,C.mImages[getIntent().getIntExtra("position",0)],tablayout_iv);
     }
 
     @Override
@@ -125,8 +129,16 @@ public class FunPicActivity extends BaseActivity<ActivityFunpicBinding> {
         mAdapter.setOnItemLisenter(new FunPicAdapter.ItemListener() {
 
             @Override
-            public void onItemClick(View iv, String url) {
-                System.out.println(11111);
+            public void onItemClick(View iv, ArrayList<FunPicBean.Data> data, int position) {
+
+                Intent it=new Intent(FunPicActivity.this, PicBrowserActivity.class);
+                it.putExtra("position",position);
+                it.putExtra("data",data);
+                if (Build.VERSION.SDK_INT >= 21) {
+                    startActivity(it, ActivityOptions.makeSceneTransitionAnimation(FunPicActivity.this, new Pair<>(iv, "sharePic")).toBundle());
+                } else {
+                    startActivity(it);
+                }
             }
         });
     }
